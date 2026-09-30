@@ -1,0 +1,36 @@
+html { scroll-behavior: smooth; }
+body { min-width: 320px; }
+.menu-lateral.contraido { width: 72px; }
+.menu-lateral.contraido .marca-completa,
+.menu-lateral.contraido .texto-menu,
+.menu-lateral.contraido .estado-sistema { display: none; }
+.menu-lateral.contraido .marca-reducida { display: block; }
+.menu-lateral.contraido .enlace-menu { justify-content: center; padding-left: 0; padding-right: 0; }
+.enlace-menu { color: rgba(255,255,255,.68); transition: background-color .2s, color .2s; }
+.enlace-menu:hover, .enlace-menu.activo { color: #fff; background: rgba(255,255,255,.1); }
+.icono-menu { display: inline-grid; width: 22px; flex: 0 0 22px; place-items: center; font-size: 18px; line-height: 1; }
+.boton-icono { width: 40px; height: 40px; flex: 0 0 40px; place-items: center; border: 1px solid #dbe4ee; border-radius: 6px; background: #fff; color: #173557; font-size: 22px; font-weight: 700; }
+.boton-icono:hover { background: #f8fafc; }
+.boton-periodo { border-radius: 4px; padding: 7px 12px; color: #64748b; font-size: .78rem; font-weight: 600; transition: background-color .2s, color .2s; }
+.boton-periodo:hover { color: #173557; background: #f1f5f9; }
+.boton-periodo.activo { color: #fff; background: #173557; }
+.tarjeta { background: #fff; border: 1px solid #dbe4ee; border-radius: 8px; padding: 20px; box-shadow: 0 8px 22px rgba(23, 53, 87, 0.05); }
+.indicador { position: relative; overflow: hidden; }
+.indicador::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 4px; }
+.indicador-temperatura::before { background: #3DB2DE; }
+.indicador-lluvia::before { background: #173557; }
+.indicador-humedad::before { background: #22A06B; }
+.indicador-calidad::before { background: #E9A23B; }
+.etiqueta { font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+.valor { font-family: "Outfit", sans-serif; font-size: 1.8rem; font-weight: 700; margin-top: 6px; }
+.valor small { font-size: 0.9rem; color: #64748b; }
+.grafica-principal { position: relative; height: 340px; }
+.grafica-secundaria { position: relative; height: 270px; }
+.leyenda { border-radius: 999px; padding: 4px 9px; font-size: 0.7rem; font-weight: 700; }
+.leyenda-cielo { color: #147b9f; background: #e4f6fc; }
+.leyenda-marino { color: #173557; background: #e8edf3; }
+.leyenda-verde { color: #16714d; background: #e3f5ed; }
+@media (max-width: 640px) {
+  .grafica-principal, .grafica-secundaria { height: 250px; }
+  .tarjeta { padding: 16px; }
+}
