@@ -177,11 +177,27 @@ function estado(texto, error = false) {
   elemento.className = `mt-1 text-sm ${error ? "text-red-600" : "text-slate-500"}`;
 }
 
+// Función auxiliar para validar respuestas del backend de manera segura
+async function parsearRespuesta(respuesta) {
+  const texto = await respuesta.text();
+  let datos;
+  try {
+    datos = texto ? JSON.parse(texto) : {};
+  } catch (e) {
+    throw new Error(`Respuesta no válida del servidor (Status ${respuesta.status})`);
+  }
+
+  if (!respuesta.ok || datos.error) {
+    throw new Error(datos.error || `Error en el servidor (${respuesta.status})`);
+  }
+
+  return datos;
+}
+
 async function cargarDemo() {
   try {
     const respuesta = await fetch("/api/demo");
-    const datos = await respuesta.json();
-    if (!respuesta.ok || datos.error) throw new Error(datos.error || "No se pudo cargar el ejemplo");
+    const datos = await parsearRespuesta(respuesta);
     mostrar(datos);
     estado(`Ejemplo cargado: ${datos.resumen.validos} filas válidas`);
   } catch (error) {
@@ -199,8 +215,7 @@ document.getElementById("archivo").addEventListener("change", async evento => {
 
   try {
     const respuesta = await fetch("/api/subir", { method: "POST", body: formulario });
-    const datos = await respuesta.json();
-    if (!respuesta.ok || datos.error) throw new Error(datos.error || "No se pudo procesar el archivo");
+    const datos = await parsearRespuesta(respuesta);
     mostrar(datos);
     estado(`${archivo.name}: ${datos.resumen.validos} de ${datos.resumen.total} filas válidas`);
   } catch (error) {
